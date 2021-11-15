@@ -1,1 +1,3 @@
 /metabase-data
+/.env
+/.env.production
