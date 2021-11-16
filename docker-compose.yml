@@ -6,6 +6,7 @@ services:
     volumes:
       - ./docker/mysql/seeds:/docker-entrypoint-initdb.d
       - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./db-date:/var/lib/mysql
     ports:
       - 3306:3306
     env_file:

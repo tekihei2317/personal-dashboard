@@ -1,4 +1,3 @@
-/metabase-data
+/db-data
 /.env
 /.env.production
-/mifit-data
