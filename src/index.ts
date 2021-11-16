@@ -25,7 +25,7 @@ async function main() {
     }
   });
 
-  fs.createReadStream("../imported/mifit/SLEEP/SLEEP_1636976201359.csv").pipe(parser);
+  fs.createReadStream("../imported-data/mifit/SLEEP/SLEEP_1636976201359.csv").pipe(parser);
 }
 
 main()
