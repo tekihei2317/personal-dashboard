@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - ./docker/mysql/seeds:/docker-entrypoint-initdb.d
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./db-data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    env_file:
+      - .env.production
+  metabase:
+    image: metabase/metabase:latest
+    ports:
+      - 3000:3000
+    environment:
+      - MB_DB_CONNECTION_URI=mysql://mysql:3306/metabase?user=root&password=password&allowPublicKeyRetrieval=true
