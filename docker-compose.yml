@@ -1,6 +1,27 @@
 version: "3.8"
 
 services:
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    ports:
+      - 80:80
+    volumes:
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+  certbot:
+    image: certbot/certbot:v1.21.0
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+  metabase:
+    image: metabase/metabase:latest
+    ports:
+      - 3000:3000
+    environment:
+      - MB_DB_CONNECTION_URI=mysql://mysql:3306/metabase?user=root&password=password&allowPublicKeyRetrieval=true
   mysql:
     image: mysql:8.0
     volumes:
@@ -11,12 +32,6 @@ services:
       - 3306:3306
     env_file:
       - .env
-  metabase:
-    image: metabase/metabase:latest
-    ports:
-      - 3000:3000
-    environment:
-      - MB_DB_CONNECTION_URI=mysql://mysql:3306/metabase?user=root&password=password&allowPublicKeyRetrieval=true
   phpmyadmin:
     image: phpmyadmin:latest
     ports:
