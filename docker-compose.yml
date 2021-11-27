@@ -13,8 +13,8 @@ services:
     image: metabase/metabase:latest
     ports:
       - 3000:3000
-    environment:
-      - MB_DB_CONNECTION_URI=mysql://mysql:3306/metabase?user=root&password=password&allowPublicKeyRetrieval=true
+    env_file:
+      - .env
   mysql:
     image: mysql:8.0
     volumes:

@@ -13,6 +13,12 @@ services:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+  metabase:
+    image: metabase/metabase:latest
+    ports:
+      - 3000:3000
+    env_file:
+      - .env.production
   mysql:
     image: mysql:8.0
     volumes:
@@ -23,12 +29,6 @@ services:
       - 3306:3306
     env_file:
       - .env.production
-  metabase:
-    image: metabase/metabase:latest
-    ports:
-      - 3000:3000
-    environment:
-      - MB_DB_CONNECTION_URI=mysql://mysql:3306/metabase?user=root&password=password&allowPublicKeyRetrieval=true
   certbot:
     image: certbot/certbot:v1.21.0
     volumes:
