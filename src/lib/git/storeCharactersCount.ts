@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client'
-import { formatDate } from '../date/formatDate'
 import { getCharactersCount } from './getCharactersCount'
 
 const prisma = new PrismaClient()
